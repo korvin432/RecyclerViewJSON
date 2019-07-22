@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RecyclerView JSON</string>
+    <string name="compare">Сравнить аудиторию</string>
 </resources>

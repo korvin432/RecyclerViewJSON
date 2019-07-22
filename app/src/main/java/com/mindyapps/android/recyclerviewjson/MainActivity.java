@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 
-public class MainActivity extends AppCompatActivity implements ExampleAdapter.onItemClickListener {
+public class MainActivity extends AppCompatActivity implements ExampleAdapter.onItemClickListener, View.OnClickListener {
 
     public static final String EXTRA_URL = "imageUrl";
     public static final String EXTRA_CREATOR = "creatorName";
@@ -69,6 +70,10 @@ public class MainActivity extends AppCompatActivity implements ExampleAdapter.on
                 return false;
             }
         });
+
+
+        Button btnCompare = findViewById(R.id.compareBtn);
+        btnCompare.setOnClickListener(this);
     }
 
     private void parseJSON(){
@@ -78,9 +83,7 @@ public class MainActivity extends AppCompatActivity implements ExampleAdapter.on
                 "&access_token=eb10c7b2eb10c7b2eb10c7b2c9eb4f5d0ceeb10eb10c7b2b1015515a9f950f8572e4862";
 
         OkHttpClient client = new OkHttpClient();
-
         okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
-
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -121,5 +124,15 @@ public class MainActivity extends AppCompatActivity implements ExampleAdapter.on
         detailIntent.putExtra(EXTRA_LIKES, clickedItem.getLikeCount());
 
         startActivity(detailIntent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.compareBtn:
+                Intent intent = new Intent(this, CompareActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }
